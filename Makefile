@@ -5,51 +5,75 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ajurado- <ajurado-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/08/17 12:44:49 by ajurado-          #+#    #+#              #
-#    Updated: 2023/08/17 12:44:49 by ajurado-         ###   ########.fr        #
+#    Created: 2023/01/12 13:49:39 by ajurado-          #+#    #+#              #
+#    Updated: 2023/08/17 16:04:57 by ajurado-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		= so_long
-CFLAGS		= -Wall -Wextra -Werror -D BUFFER_SIZE=42
-INCLUDES	= -I $(LIBFT) -I $(GNL) -I $(MLX)/include
-LIBFT		= libft
-LIBFT_A		= $(LIBFT)/libft.a
-GNL			= get_next_line
-MLX			= MLX42
-MLX_A		= $(MLX)/libmlx42.a
-EXTRA_FLAGS	= -ldl -lglfw -pthread -lm
-EXTRA_F42	= -lglfw -L /Users/${USER}/.brew/opt/glfw/lib/ ${MLX_A} ${LIBFT_A}
-SRCS		= checker.c controller.c error.c path.c  \
-	  		so_long.c sprites.c $(SRCS_GNL)
-SRCS_GNL 	= $(GNL)/get_next_line.c $(GNL)/get_next_line_utils.c
-OBJS		= $(SRCS:.c=.o)
-RM			= rm -rf
+NAME	= libft.a
+MSRC	=	ft_isalpha.c \
+			ft_isdigit.c \
+			ft_isalnum.c \
+			ft_isascii.c \
+			ft_isprint.c \
+			ft_toupper.c \
+			ft_tolower.c \
+			ft_atoi.c \
+			ft_bzero.c \
+			ft_calloc.c \
+			ft_itoa.c \
+			ft_memchr.c \
+			ft_memcmp.c \
+			ft_memcpy.c \
+			ft_memmove.c \
+			ft_memset.c \
+			ft_putchar_fd.c \
+			ft_putendl_fd.c \
+			ft_putnbr_fd.c \
+			ft_putstr_fd.c \
+			ft_strchr.c \
+			ft_strdup.c \
+			ft_striteri.c \
+			ft_strjoin.c \
+			ft_strlcat.c \
+			ft_strlcpy.c \
+			ft_strlen.c \
+			ft_strmapi.c \
+			ft_strncmp.c \
+			ft_strrchr.c
+BSRC =		ft_lstnew_bonus.c \
+			ft_lstadd_front_bonus.c \
+			ft_lstsize_bonus.c \
+			ft_lstlast_bonus.c \
+			ft_lstadd_back_bonus.c \
+			ft_lstdelone_bonus.c \
+			ft_lstclear_bonus.c \
+			ft_lstiter_bonus.c \
+			ft_lstmap_bonus.c \
+			$(SRCS)
+MOBJ	= $(MSRC:.c=.o)
+BOBJ	= $(BSRC:.c=.o)
+CC		= gcc
+CFLAGS	= -Wall -Wextra -Werror
+RM		= rm -f
 
-all: libft mlx $(NAME)
-
-libft:
-	make -C $(LIBFT)
-
-mlx:
-	make -C $(MLX)
+all: $(NAME)
 
 %.o: %.c
-	gcc $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS)
-	gcc $(CFLAGS) $(SRCS) $(LIBFT_A) $(MLX_A) $(INCLUDES) $(EXTRA_F42) -o $(NAME)
+$(NAME): $(MOBJ)
+		ar -rc $(NAME) $(MOBJ)
 
-clean: 
-	make clean -C $(LIBFT)
-	make clean -C $(MLX)
-	$(RM) $(OBJS)
+clean:
+		$(RM) $(MOBJ) $(BOBJ)
 
-fclean:	clean
-	$(RM) $(LIBFT_A)
-	$(RM) $(MLX_A)
-	$(RM) $(NAME)
+fclean: clean
+		$(RM) $(NAME)
 
-re:		fclean all
+re: fclean all
 
-.PHONY:	all clean fclean re libft mlx
+bonus: $(MOBJ) $(BOBJ)
+		ar -rc $(NAME) $(MOBJ) $(BOBJ)
+
+.PHONY: all clean fclean re bonus
