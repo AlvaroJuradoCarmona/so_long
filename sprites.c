@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprites.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajurado- <ajurado-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/17 12:44:18 by ajurado-          #+#    #+#             */
+/*   Updated: 2023/08/17 12:44:18 by ajurado-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	ft_load_sprites(t_data *data)
@@ -5,19 +17,19 @@ void	ft_load_sprites(t_data *data)
 	mlx_texture_t	*aux;
 
 	aux = mlx_load_png("./textures/background.png");
-	data->wall_img = mlx_texture_to_image(data->mlx, aux);
-	mlx_delete_texture(aux);
-	aux = mlx_load_png("./textures/collectable.png");
 	data->bg_img = mlx_texture_to_image(data->mlx, aux);
 	mlx_delete_texture(aux);
-	aux = mlx_load_png("./textures/exit.png");
-	data->collect_img = mlx_texture_to_image(data->mlx, aux);
+	aux = mlx_load_png("./textures/collectable.png");
+	data->collectable_img = mlx_texture_to_image(data->mlx, aux);
 	mlx_delete_texture(aux);
-	aux = mlx_load_png("./textures/player.png");
+	aux = mlx_load_png("./textures/exit.png");
 	data->exit_img = mlx_texture_to_image(data->mlx, aux);
 	mlx_delete_texture(aux);
-	aux = mlx_load_png("./textures/wall.png");
+	aux = mlx_load_png("./textures/player.png");
 	data->player_img = mlx_texture_to_image(data->mlx, aux);
+	mlx_delete_texture(aux);
+	aux = mlx_load_png("./textures/wall.png");
+	data->wall_img = mlx_texture_to_image(data->mlx, aux);
 	mlx_delete_texture(aux);
 }
 
@@ -39,8 +51,8 @@ void	ft_window_map(t_data *data, int img_size)
 	i = -1;
 	while (data->map[++i])
 	{
-		x = (i % data->map_width) * img_size;
-		y = (i / data->map_width) * img_size;
+		x = (i % (data->map_width + 1)) * img_size;
+		y = (i / (data->map_width + 1)) * img_size;
 		if (data->map[i] != '\n')
 			mlx_image_to_window(data->mlx, data->bg_img, x, y);
 		if (data->map[i] == '1')

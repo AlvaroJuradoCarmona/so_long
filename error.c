@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajurado- <ajurado-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/17 12:44:34 by ajurado-          #+#    #+#             */
+/*   Updated: 2023/08/21 19:50:59 by ajurado-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-void	ft_print_error (int error)
+void	ft_print_error(int error)
 {
 	ft_putstr_fd("ERROR:", 2);
 	if (error == 0)
@@ -17,24 +29,23 @@ void	ft_print_error (int error)
 		ft_putendl_fd("Wrong components", 2);
 }
 
-void	ft_free_error (t_data *data, int error)
+void	ft_free_error(t_data *data, int error)
 {
 	ft_print_error(error);
 	free(data);
+	exit(EXIT_FAILURE);
 }
 
-void	ft_free_map (t_data *data, int error)
+void	ft_free_map(t_data *data, int error)
 {
 	if (data->map_clone)
 		free(data->map_clone);
 	free(data->map);
-	ft_print_error(error);
+	ft_free_error(data, error);
 }
 
 void	ft_free_all(t_data *data)
 {
 	ft_delete_sprites(data);
 	mlx_terminate(data->mlx);
-	free(data->map);
-	free(data);
 }

@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ajurado- <ajurado-@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/08/17 12:44:49 by ajurado-          #+#    #+#              #
+#    Updated: 2023/08/17 12:44:49 by ajurado-         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME 		= so_long
 CFLAGS		= -Wall -Wextra -Werror -D BUFFER_SIZE=42
 INCLUDES	= -I $(LIBFT) -I $(GNL) -I $(MLX)/include
@@ -7,8 +19,9 @@ GNL			= get_next_line
 MLX			= MLX42
 MLX_A		= $(MLX)/libmlx42.a
 EXTRA_FLAGS	= -ldl -lglfw -pthread -lm
-SRCS		= src/checker.c src/controller.c src/error.c src/path.c  \
-	  		src/so_long.c src/sprites.c $(SRCS_GNL)
+EXTRA_F42	= -lglfw -L /Users/${USER}/.brew/opt/glfw/lib/ ${MLX_A} ${LIBFT_A}
+SRCS		= checker.c controller.c error.c path.c  \
+	  		so_long.c sprites.c $(SRCS_GNL)
 SRCS_GNL 	= $(GNL)/get_next_line.c $(GNL)/get_next_line_utils.c
 OBJS		= $(SRCS:.c=.o)
 RM			= rm -rf
@@ -25,7 +38,7 @@ mlx:
 	gcc $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJS)
-	gcc $(CFLAGS) $(SRCS) $(LIBFT_A) $(MLX_A) $(INCLUDES) $(EXTRA_FLAGS)-o $(NAME)
+	gcc $(CFLAGS) $(SRCS) $(LIBFT_A) $(MLX_A) $(INCLUDES) $(EXTRA_F42) -o $(NAME)
 
 clean: 
 	make clean -C $(LIBFT)

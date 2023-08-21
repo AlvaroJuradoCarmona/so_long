@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   controller.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajurado- <ajurado-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/17 12:44:39 by ajurado-          #+#    #+#             */
+/*   Updated: 2023/08/17 12:44:39 by ajurado-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static void	ft_controller_up(t_data *data)
@@ -9,7 +21,7 @@ static void	ft_controller_up(t_data *data)
 	i = 0;
 	while (data->map[i] != 'P')
 		i++;
-	up = i - data->map_width;
+	up = i - data->map_width - 1;
 	if (data->map[up] != '1'
 		&& !ft_check_exit(data, data->map[up]))
 	{
@@ -59,7 +71,7 @@ static void	ft_controller_down(t_data *data)
 	i = 0;
 	while (data->map[i] != 'P')
 		i++;
-	down = i + data->map_width;
+	down = i + data->map_width + 1;
 	if (data->map[down] != '1'
 		&& !ft_check_exit(data, data->map[down]))
 	{
