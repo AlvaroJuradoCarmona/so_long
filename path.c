@@ -50,8 +50,8 @@ void	ft_check_path(t_data *data, int comp_pos, char component)
 {
 	if (!ft_path_exist(data, data->player_pos, comp_pos, component))
 		ft_free_map(data, 4);
-	data->map_clone = ft_strdup(data->map);
 	free(data->map_clone);
+	data->map_clone = ft_strdup(data->map);
 }
 
 int	ft_check_exit(t_data *data, char pos)

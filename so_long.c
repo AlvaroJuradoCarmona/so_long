@@ -6,7 +6,7 @@
 /*   By: ajurado- <ajurado-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 11:55:40 by ajurado-          #+#    #+#             */
-/*   Updated: 2023/08/21 19:26:28 by ajurado-         ###   ########.fr       */
+/*   Updated: 2023/08/25 14:24:05 by ajurado-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static void	ft_initialize(t_data *data, char *arg)
 	ft_check_map(data, arg);
 }
 
-void ft_leaks(void)
+void	ft_leaks(void)
 {
-    system ("leaks -q so_long");
+	system ("leaks -q so_long");
 }
 
 int	main(int argc, char **argv)
@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 			exit(EXIT_FAILURE);
 		}
 		ft_initialize(data, argv[1]);
-		data->mlx = mlx_init(32 * (data->map_width - 1),
+		data->mlx = mlx_init(32 * (data->map_width),
 				32 * (data->map_height - 1), "so_long", true);
 		if (!(data->mlx))
 			ft_free_map(data, 0);
